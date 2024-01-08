@@ -18,7 +18,7 @@ import fr.uha.dev.deckbuilder.model.Deck
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateTeamScreen(
+fun CreateDeckScreen(
     vm: DeckViewModel = hiltViewModel(),
     back: () -> Unit,
 ) {
@@ -43,7 +43,7 @@ fun CreateTeamScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { AppTitle (pageTitleId = R.string.title_team_create, isModified = uiState.isModified()) },
+                title = { AppTitle (pageTitleId = R.string.title_deck_create, isModified = uiState.isModified()) },
                 actions = { AppMenu(menuEntries) }
             )
         }
@@ -51,16 +51,16 @@ fun CreateTeamScreen(
             modifier = Modifier.padding(innerPadding)
         ) {
             when (uiState.initialState) {
-                DeckViewModel.TeamState.Loading -> {
+                DeckViewModel.DeckState.Loading -> {
                     LoadingScreen(text = stringResource(R.string.loading))
                 }
 
-                DeckViewModel.TeamState.Error -> {
+                DeckViewModel.DeckState.Error -> {
                     ErrorScreen(text = stringResource(R.string.error))
                 }
 
-                is DeckViewModel.TeamState.Success -> {
-                    SuccessTeamScreen(uiState, vm.uiCallback)
+                is DeckViewModel.DeckState.Success -> {
+                    SuccessDeckScreen(uiState, vm.uiCallback)
                 }
             }
         }
