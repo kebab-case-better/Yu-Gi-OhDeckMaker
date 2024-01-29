@@ -7,10 +7,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import fr.uha.dev.deckbuilder.database.CardDao
+import fr.uha.dev.deckbuilder.database.CollectionCardDao
 import fr.uha.dev.deckbuilder.database.DeckBuilderDatabase
 import fr.uha.dev.deckbuilder.database.DeckDao
+import fr.uha.dev.deckbuilder.database.ExtensionDao
 import fr.uha.dev.deckbuilder.repository.CardRepository
+import fr.uha.dev.deckbuilder.repository.CollectionCardRepository
 import fr.uha.dev.deckbuilder.repository.DeckRepository
+import fr.uha.dev.deckbuilder.repository.ExtensionRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,25 +40,49 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providePersonDao(db: DeckBuilderDatabase) = db.cardDao
+    fun provideCardDao(db: DeckBuilderDatabase) = db.cardDao
 
     @Singleton
     @Provides
-    fun provideTeamDao(db: DeckBuilderDatabase) = db.deckDao
+    fun provideDeckDao(db: DeckBuilderDatabase) = db.deckDao
 
     @Singleton
     @Provides
-    fun providePersonRepository(
+    fun provideCollectionCardDao(db: DeckBuilderDatabase) = db.collectionCardDao
+
+    @Singleton
+    @Provides
+    fun provideExtensionDao(db: DeckBuilderDatabase) = db.extensionDao
+
+    @Singleton
+    @Provides
+    fun provideCardRepository(
 //        dispatcher: CoroutineDispatcher,
         cardDao: CardDao
     ) = CardRepository(cardDao)
 
     @Singleton
     @Provides
-    fun provideTeamRepository(
+    fun provideDeckRepository(
 //        dispatcher: CoroutineDispatcher,
         deckDao: DeckDao,
         cardDao: CardDao
     ) = DeckRepository(deckDao, cardDao)
 
+    @Singleton
+    @Provides
+    fun provideCollectionCardRepository(
+//        dispatcher: CoroutineDispatcher,
+        collectionCard: CollectionCardDao,
+        cardDao: CardDao,
+        extensionDao: ExtensionDao
+    ) = CollectionCardRepository(collectionCard)
+
+    @Singleton
+    @Provides
+    fun provideExtensionRepository(
+//        dispatcher: CoroutineDispatcher,
+        extensionDao: ExtensionDao,
+        cardDao: CardDao
+    ) = ExtensionRepository(extensionDao, cardDao)
 }

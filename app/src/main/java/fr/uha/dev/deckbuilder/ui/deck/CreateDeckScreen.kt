@@ -15,7 +15,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import fr.uha.dev.android.ui.*
 import fr.uha.dev.deckbuilder.R
 import fr.uha.dev.deckbuilder.model.Deck
-import fr.uha.dev.deckbuilder.ui.collection.SuccessDeckScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
