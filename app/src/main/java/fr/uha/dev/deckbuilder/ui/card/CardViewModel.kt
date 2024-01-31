@@ -11,7 +11,6 @@ import fr.uha.dev.deckbuilder.model.Type
 import fr.uha.dev.deckbuilder.repository.CardRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 

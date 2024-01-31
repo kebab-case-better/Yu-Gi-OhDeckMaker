@@ -1,36 +1,38 @@
 package fr.uha.dev.deckbuilder.repository
 
-import fr.uha.dev.deckbuilder.database.CardDao
 import fr.uha.dev.deckbuilder.database.CollectionCardDao
-import fr.uha.dev.deckbuilder.database.ExtensionDao
-import fr.uha.dev.deckbuilder.model.Card
 import fr.uha.dev.deckbuilder.model.CollectionCard
 import fr.uha.dev.deckbuilder.model.CollectionCardAssociation
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMapConcat
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
 
 class CollectionCardRepository(
     private val collectionCardDao: CollectionCardDao,
 
-) {
-    suspend fun addCardToCollection(collectionCard: CollectionCard) {
-        withContext(Dispatchers.IO) {
-        }
-    }
-    suspend fun editCardInCollection(collectionCard: CollectionCard) {
-        withContext(Dispatchers.IO) {
-        }
+    ) {
+
+    fun getCollectionCard(id: Long): Flow<CollectionCard?> {
+        return collectionCardDao.getCollectionCardById(id)
     }
 
-    suspend fun updateCollectionCard(card: CollectionCard) {
-        collectionCardDao.update(card)
+    fun createCollectionCard(collectionCard: CollectionCard): Long {
+        return collectionCardDao.upsert(collectionCard)
     }
 
-    fun getAllCollectionCards(): Flow<List<CollectionCard>> {
-        return collectionCardDao.getAll()
+    fun saveCollectionCard(collectionCard: CollectionCard) {
+        collectionCardDao.upsert(collectionCard)
     }
+
+    fun createAssociation(association: CollectionCardAssociation) {
+        collectionCardDao.insertAssociation(association)
+    }
+
+    fun getCollectionCardId(cid: Long): Flow<Long?> {
+        return collectionCardDao.getCollectionCardId(cid)
+    }
+
+    fun countCardInCollection(cardId: Long): Int {
+        return collectionCardDao.countCardInCollection(cardId)
+    }
+
+
 }

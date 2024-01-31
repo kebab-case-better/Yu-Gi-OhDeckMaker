@@ -1,5 +1,6 @@
 package fr.uha.dev.deckbuilder.ui.deck
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -33,17 +34,18 @@ import fr.uha.dev.android.ui.SwipeableItem
 import fr.uha.dev.deckbuilder.R
 import fr.uha.dev.deckbuilder.model.Deck
 
+@SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListDecksScreen(
-    vm : ListDecksViewModel = hiltViewModel(),
-    onCreate : () -> Unit,
-    onEdit : (p : Deck) -> Unit,
+    vm: ListDecksViewModel = hiltViewModel(),
+    onCreate: () -> Unit,
+    onEdit: (p: Deck) -> Unit,
 ) {
     val decks = vm.decks.collectAsStateWithLifecycle(initialValue = emptyList())
 
     val menuEntries = listOf(
-        AppMenuEntry.OverflowEntry(title = R.string.populate, listener = {vm.feed() } ),
+        AppMenuEntry.OverflowEntry(title = R.string.populate, listener = { vm.feed() }),
     )
 
     Scaffold(
@@ -72,7 +74,7 @@ fun ListDecksScreen(
                 ) {
                     val firstCardImageUri by vm.getFirstCardImageUri(deck.did)
                         .collectAsState(initial = null)
-                        DeckItem(deck, firstCardImageUri)
+                    DeckItem(deck, firstCardImageUri)
                 }
             }
         }
